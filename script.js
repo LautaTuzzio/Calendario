@@ -70,10 +70,19 @@ function loadCalendar(month = currentMonth, year = currentYear) {
         }
 
         let holidayKey = (month + 1) + '-' + i
-        if (holidays[holidayKey]) {
-            day.classList.add('holiday')
-            day.title = holidays[holidayKey]
+    if (holidays[holidayKey]) {
+        day.classList.add('holiday')
+        const holidayIcons = {
+            'Año Nuevo': '🎉',
+            'Dia del Trabajo': '👷',
+            'Navidad': '🎄'
         }
+        const icon = document.createElement('span')
+        icon.classList.add('holiday-icon')
+        icon.textContent = holidayIcons[holidays[holidayKey]] || '🌟'
+        day.appendChild(icon)
+        day.title = holidays[holidayKey]
+    }
 
         let dateStr = year + '-' + 
                      (month + 1).toString().padStart(2, '0') + '-' + 
