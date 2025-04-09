@@ -85,19 +85,28 @@ function loadCalendar(month = currentMonth, year = currentYear) {
         }
 
         day.addEventListener('click', function() {
-            let selectedDay = document.querySelector('.selected-day')
-            if (selectedDay) {
-                selectedDay.classList.remove('selected-day')
+            // Remove today class from all days
+            document.querySelectorAll('.today').forEach(el => {
+                if (el !== this) {
+                    el.classList.remove('today');
+                }
+            });
+            
+            // Remove selected class from previously selected day
+            let selectedDay = document.querySelector('.selected-day');
+            if (selectedDay && selectedDay !== this) {
+                selectedDay.classList.remove('selected-day');
             }
             
-            day.classList.add('selected-day')
+            // Add selected class to clicked day
+            this.classList.add('selected-day');
             
             document.getElementById('selected-date').textContent = 
-                i + ' de ' + monthNames[month] + ' de ' + year
+                i + ' de ' + monthNames[month] + ' de ' + year;
             
-            showEvents(dateStr)
+            showEvents(dateStr);
             
-            document.getElementById('event-date').value = dateStr
+            document.getElementById('event-date').value = dateStr;
         })
 
         datesContainer.appendChild(day)

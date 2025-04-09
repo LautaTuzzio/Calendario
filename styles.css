@@ -48,15 +48,23 @@ body {
 .calendar__prev, .calendar__next {
     background: none;
     border: none;
-    font-size: 1.2em;
+    font-size: 1.5em;
     cursor: pointer;
     padding: 5px 10px;
     color: #666;
-    transition: color 0.3s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .calendar__prev:hover, .calendar__next:hover {
     color: #000;
+    background-color: #e3f2fd;
+    transform: scale(1.1);
 }
 
 .calendar-week {
@@ -87,8 +95,10 @@ body {
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid transparent;
+    animation: fadeIn 0.5s ease-out;
+    position: relative;
 }
 
 .day:nth-child(7n),
@@ -100,24 +110,29 @@ body {
 .day:hover {
     background-color: #f0f0f0;
     border-color: #ddd;
+    transform: scale(1.05);
 }
 
 .today {
-    background-color: #ffd700;
+    background-color: #e3f2fd;
+    border-color: #1976d2;    
     font-weight: bold;
     color: #333;
+    animation: pulse 2s infinite;
 }
 
 .holiday {
     background-color: #ffcdd2;
     color: #c62828;
     font-weight: bold;
+    animation: bounce 0.5s ease;
 }
 
 .event {
     background-color: #bbdefb;
     color: #1976d2;
     font-weight: bold;
+    animation: popIn 0.3s ease-out;
 }
 
 .event-form {
@@ -187,11 +202,81 @@ body {
     word-wrap: break-word;
     overflow-wrap: break-word;
     white-space: normal;
+    animation: slideIn 0.3s ease-out;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.event-item:hover {
+    transform: translateX(5px);
+    background-color: #e3f2fd;
 }
 
 .selected-day {
     background-color: #e3f2fd;
     border-color: #1976d2;
+    transform: scale(1.1);
+    animation: selectDay 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes selectDay {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 @media (max-width: 768px) {
